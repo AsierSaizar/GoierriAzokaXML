@@ -31,8 +31,13 @@ writeLog("Orria kargatu da", ["url" => $actual_link, "get" => json_encode($_GET)
     <?php
     //XMLko konfiguraziotik hartzen dute informazioa
 
-    $mainColor = "#a1a2a3";
-    $footerColor = "#555555";
+    $config = simplexml_load_file(APP_DIR."/conf.xml");
+
+    $mainColor = $config->mainColor;
+    $footerColor = $config->footerColor;
+    
+    
+    
 
     ?>
     <style>
