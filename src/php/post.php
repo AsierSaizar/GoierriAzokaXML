@@ -195,9 +195,14 @@ function changeConfig($inputValue)
     //XML konfigurazioa
     $config = simplexml_load_file(APP_DIR . '/conf.xml');
 
-    //TODO: GARATZEKO
+    $mainColor = $_POST['mainColor'];
+    $footerColor = $_POST['footerColor'];
 
-    //Orri nagusira redirekzioa egiteko
+    $config->mainColor = $mainColor;
+    $config->footerColor = $footerColor;
+
+
+    $config->asXML(APP_DIR . '/conf.xml');
     $location = HREF_APP_DIR . "/src/views/main/index.php";
     
     header('Location: '. $location);

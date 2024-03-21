@@ -28,15 +28,17 @@ writeLog("Orria kargatu da", ["url" => $actual_link, "get" => json_encode($_GET)
 
     <!-- External -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <?php
+
+
+
     //XMLko konfiguraziotik hartzen dute informazioa
 
     $config = simplexml_load_file(APP_DIR."/conf.xml");
 
     $mainColor = $config->mainColor;
     $footerColor = $config->footerColor;
-    
-    
     
 
     ?>
@@ -50,7 +52,6 @@ writeLog("Orria kargatu da", ["url" => $actual_link, "get" => json_encode($_GET)
     </style>
     <!-- Internal -->
     <link href="<?= HREF_APP_DIR ?>/src/css/app.css" rel="stylesheet">
-
 
 </head>
 
