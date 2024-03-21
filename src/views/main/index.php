@@ -150,18 +150,18 @@ if ($result->num_rows > 0) {
                                 //$pagina_actual = $_POST["kurtsoa"];
                                 $pagina_actual = 2;
                                 
-                                // Cargar el archivo XML
+                                
                                 $xml = simplexml_load_file("coment.xml");
                                 
                                 // Mostrar las opiniones
-                                foreach ($xml->opinion as $opinion) {
+                                foreach ($xml->comentarioa as $comentarioa) {
                                     // Verificar si el valor de kurtsoa coincide con el valor enviado por el formulario
-                                    if ($opinion->kurtsoa == $kurtsoa) {
+                                    if ($comentarioa->kurtsoa == $kurtsoa) {
                                         echo "<div>";
-                                        echo "<p><strong>Izena:</strong> " . $opinion->nombre . "</p>";
-                                        echo "<p><strong>Correo:</strong> " . $opinion->correo . "</p>";
-                                        echo "<p><strong>Mensaje:</strong> " . $opinion->mensaje . "</p>";
-                                        echo "<p><strong>Fecha:</strong> " . $opinion->fecha . "</p>";
+                                        echo "<p><strong>Izena:</strong> " . $comentarioa->izena . "</p>";
+                                        echo "<p><strong>Usuarioa:</strong> " . $comentarioa->email . "</p>";
+                                        echo "<p><strong>Mezua:</strong> " . $comentarioa->mezua . "</p>";
+                                        echo "<p><strong>Data:</strong> " . $comentarioa->data . "</p>";
                                         echo "</div>";
                                     }
                                 }
