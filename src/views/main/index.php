@@ -122,6 +122,51 @@ if ($result->num_rows > 0) {
                         <div class="middle_text">
                             <button type="submit" id="sendResults">Bidali</button>
                         </div>
+
+
+                        <div class="containerComentariosSortzeko">
+                            <form action=""></form>
+                        </div>
+
+
+                        <div class="containerComentarios">
+                            <?php
+                            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                                $nombre = $_POST["nombre"];
+                                $correo = $_POST["correo"];
+                                $mensaje = $_POST["mensaje"];
+                                $kurtsoa = isset($_POST["kurtsoa"]) ? $_POST["kurtsoa"] : 1;
+                        
+                                // Cargar el archivo XML
+                                $xml = simplexml_load_file("iruzkinak.xml");
+                        
+                            
+                            }
+                        
+                                }
+                                ?>
+                            <?php
+                                // Kurtsoa lortu    
+                                //$pagina_actual = $_POST["kurtsoa"];
+                                $pagina_actual = 2;
+                                
+                                // Cargar el archivo XML
+                                $xml = simplexml_load_file("coment.xml");
+                                
+                                // Mostrar las opiniones
+                                foreach ($xml->opinion as $opinion) {
+                                    // Verificar si el valor de kurtsoa coincide con el valor enviado por el formulario
+                                    if ($opinion->kurtsoa == $kurtsoa) {
+                                        echo "<div>";
+                                        echo "<p><strong>Izena:</strong> " . $opinion->nombre . "</p>";
+                                        echo "<p><strong>Correo:</strong> " . $opinion->correo . "</p>";
+                                        echo "<p><strong>Mensaje:</strong> " . $opinion->mensaje . "</p>";
+                                        echo "<p><strong>Fecha:</strong> " . $opinion->fecha . "</p>";
+                                        echo "</div>";
+                                    }
+                                }
+                            ?>
+                        </div>
                     </div>
                 </div>
             <?php
@@ -145,6 +190,7 @@ if ($result->num_rows > 0) {
         ?>
         <!-- Defektuzko argazkia badauka beheran okupatu egingo du. -->
         <div class="botomSpace"></div>
+  
 <?php
         }
     } else {
@@ -152,6 +198,6 @@ if ($result->num_rows > 0) {
         echo "<br>";
         echo "<br>";
     }
-}
+
 require_once(APP_DIR  . '/src//views/parts/layouts/layoutBottom.php');
 ?>
