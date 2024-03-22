@@ -35,6 +35,7 @@ if ($result->num_rows > 0) {
     $argazki_esteka = $row["argazki_esteka"]; //Hau DBko $row-etik atera behar da
     $web_esteka = $row["web_esteka"]; //Hau DBko $row-etik atera behar da
     $active = $row["active"];
+}
 
     if ($active == 1) {
 ?>
@@ -125,44 +126,77 @@ if ($result->num_rows > 0) {
 
 
                         <div class="containerComentariosSortzeko">
-                            <form action=""></form>
+                            <form method="GET" action="">
+                                
+                                <span>Izena:<span>
+                                <input type="text" name="izena"></input>
+                                <span>Email:<span>
+                                <input type="email" name="email"></input>
+                                <span>Komentarioa:<span>
+                                <input type="textfield" name="mezua"></input>
+                                
+                                <button type="submit" >Bidali</button>
+                            </form>
+                            <?php
+                               
+                                if (isset($_GET["izena"]) && isset($_GET["email"]) && isset($_GET["mezua"]) && $_SERVER["REQUEST_METHOD"] == "GET" ) {
+                                    
+                                    $izena = $_GET["izena"];
+                                    $email = $_GET["email"];
+                                    $mezua = $_GET["mezua"];
+                                    
+                                   
+                                    if (isset($_GET["kurtsoa"])) {
+                                        $kurtsoa = $_GET["kurtsoa"];
+                                    } else {
+                                        $kurtsoa = 1;
+                                    }
+            
+                                    
+                            
+                                
+                                    $xml = simplexml_load_file("coment.xml");
+                            
+                                    
+                                    $comentarioBerria = $xml->addChild('comentarioa');
+                                    $comentarioBerria->addChild('izena', $izena);
+                                    $comentarioBerria->addChild('email', $email);
+                                    $comentarioBerria->addChild('mezua', $mezua);
+                                    $comentarioBerria->addChild('kurtsoa', $kurtsoa);
+                                    $comentarioBerria->addChild('data', date("Y-m-d H:i:s"));
+                            
+                                    $xml->asXML("coment.xml");
+                                } 
+                            ?>
+                            
                         </div>
 
 
                         <div class="containerComentarios">
+                                 
                             <?php
-                            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                                $nombre = $_POST["nombre"];
-                                $correo = $_POST["correo"];
-                                $mensaje = $_POST["mensaje"];
-                                $kurtsoa = isset($_POST["kurtsoa"]) ? $_POST["kurtsoa"] : 1;
-                        
-                                // Cargar el archivo XML
-                                $xml = simplexml_load_file("iruzkinak.xml");
-                        
                             
-                            }
-                        
-                                }
-                                ?>
-                            <?php
-                                // Kurtsoa lortu    
-                                //$pagina_actual = $_POST["kurtsoa"];
-                                $pagina_actual = 2;
+                            $xml = simplexml_load_file("coment.xml");
+                            
+                            if (isset($_GET["kurtsoa"])) {
+                                $kurtsoa = $_GET["kurtsoa"];
+                            } else {
+                                $kurtsoa = 1;
+                            }  
+                            
+                                
                                 
                                 
                                 $xml = simplexml_load_file("coment.xml");
                                 
-                                // Mostrar las opiniones
                                 foreach ($xml->comentarioa as $comentarioa) {
-                                    // Verificar si el valor de kurtsoa coincide con el valor enviado por el formulario
                                     if ($comentarioa->kurtsoa == $kurtsoa) {
                                         echo "<div>";
                                         echo "<p><strong>Izena:</strong> " . $comentarioa->izena . "</p>";
                                         echo "<p><strong>Usuarioa:</strong> " . $comentarioa->email . "</p>";
                                         echo "<p><strong>Mezua:</strong> " . $comentarioa->mezua . "</p>";
                                         echo "<p><strong>Data:</strong> " . $comentarioa->data . "</p>";
-                                        echo "</div>";
+                                        echo "</div><br>";
                                     }
                                 }
                             ?>
