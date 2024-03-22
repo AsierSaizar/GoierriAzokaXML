@@ -16,7 +16,7 @@ require_once(APP_DIR . '/src/php/connect.php');
 //scanned aldagaia badator estekan formularioa erakutsiko du
 $scanned = true;
 
-$kurtsoa = isset($_GET["kurtsoa"]) ? $_GET["kurtsoa"] : 1;
+$kurtsoa = isset($_POST["kurtsoa"]) ? $_POST["kurtsoa"] : 1;
 
 $result = getZikloa($kurtsoa);
 
@@ -126,49 +126,17 @@ if ($result->num_rows > 0) {
 
 
                         <div class="containerComentariosSortzeko">
-                            <form method="GET" action="">
+                            <form method="POST" action="laburpena/idatzi.php">
                                 
                                 <span>Izena:<span>
-                                <input type="text" name="izena"></input>
+                                <input type="text" name="izena" required></input>
                                 <span>Email:<span>
-                                <input type="email" name="email"></input>
+                                <input type="email" name="email" required></input>
                                 <span>Komentarioa:<span>
-                                <input type="textfield" name="mezua"></input>
+                                <input type="textfield" name="mezua" required></input>
                                 
                                 <button type="submit" >Bidali</button>
                             </form>
-                            <?php
-                               
-                                if (isset($_GET["izena"]) && isset($_GET["email"]) && isset($_GET["mezua"]) && $_SERVER["REQUEST_METHOD"] == "GET" ) {
-                                    
-                                    $izena = $_GET["izena"];
-                                    $email = $_GET["email"];
-                                    $mezua = $_GET["mezua"];
-                                    
-                                   
-                                    if (isset($_GET["kurtsoa"])) {
-                                        $kurtsoa = $_GET["kurtsoa"];
-                                    } else {
-                                        $kurtsoa = 1;
-                                    }
-            
-                                    
-                            
-                                
-                                    $xml = simplexml_load_file("coment.xml");
-                            
-                                    
-                                    $comentarioBerria = $xml->addChild('comentarioa');
-                                    $comentarioBerria->addChild('izena', $izena);
-                                    $comentarioBerria->addChild('email', $email);
-                                    $comentarioBerria->addChild('mezua', $mezua);
-                                    $comentarioBerria->addChild('kurtsoa', $kurtsoa);
-                                    $comentarioBerria->addChild('data', date("Y-m-d H:i:s"));
-                            
-                                    $xml->asXML("coment.xml");
-                                } 
-                            ?>
-                            
                         </div>
 
 
@@ -178,8 +146,8 @@ if ($result->num_rows > 0) {
                             
                             $xml = simplexml_load_file("coment.xml");
                             
-                            if (isset($_GET["kurtsoa"])) {
-                                $kurtsoa = $_GET["kurtsoa"];
+                            if (isset($_POST["kurtsoa"])) {
+                                $kurtsoa = $_POST["kurtsoa"];
                             } else {
                                 $kurtsoa = 1;
                             }  
