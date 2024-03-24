@@ -146,8 +146,8 @@ if ($result->num_rows > 0) {
                             
                             $xml = simplexml_load_file("coment.xml");
                             
-                            if (isset($_POST["kurtsoa"])) {
-                                $kurtsoa = $_POST["kurtsoa"];
+                            if (isset($_GET["kurtsoa"])) {
+                                $kurtsoa = $_GET["kurtsoa"];
                             } else {
                                 $kurtsoa = 1;
                             }  
