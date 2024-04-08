@@ -127,7 +127,8 @@ if ($result->num_rows > 0) {
 
                         <div class="containerComentariosSortzeko">
                             <form method="POST" action="laburpena/idatzi.php">
-                                
+                                <!-- Ez duzue ondo probatu ze ez du idazten 1 ez den kurtsoetan, ez diozuelako kurtsoa pasatzen
+                            Nola egingo zenuten kurtsoa pasatzeko? Garatu eta zalantzak izan ezkero galdetu! -->
                                 <span>Izena:<span>
                                 <input type="text" name="izena" required></input>
                                 <span>Email:<span>
@@ -144,6 +145,7 @@ if ($result->num_rows > 0) {
                                  
                             <?php
                             
+                            //Zergatik kargatzen duzue bi aldiz fitxategia?
                             $xml = simplexml_load_file("coment.xml");
                             
                             if (isset($_GET["kurtsoa"])) {

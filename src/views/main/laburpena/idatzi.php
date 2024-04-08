@@ -19,7 +19,7 @@ function idatziComentarioa()
         if (isset ($_POST["kurtsoa"])) {
             $kurtsoa = $_POST["kurtsoa"];
         } else {
-            $kurtsoa = 1;
+            $kurtsoa = 1; //Beti kurtsoa 1 hartzen du ez diozuelako kurtsoa pasatzen.
         }
 
 
@@ -36,6 +36,8 @@ function idatziComentarioa()
         $comentarioBerria->addChild('data', date("Y-m-d H:i:s"));
 
         $xml->asXML("../coment.xml");
+        //Gaizki birkargatzen du, a pelo daukazuelako ruta jarrita. Nik ez daukat zertan GarapenIngurunea karpeta barruan eduki beharrik
+        //KONTUZ HONEKIN!
         $location = HREF_APP_DIR . "/GarapenIngurunea/7.EntregaXML/GoierriAzokaXML/src/views/main/index.php";
 
         header('Location: ' . $location);
